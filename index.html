@@ -95,7 +95,7 @@ nav .btn{min-height:42px;padding:0 18px;font-size:13px}
 .coach .ph{position:relative;aspect-ratio:4/5}
 
 /* programs */
-.progs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:40px}
+.progs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-top:40px}
 .prog{background:#fff;border:1px solid #e6dfd2;display:flex;flex-direction:column}
 .prog .ph{position:relative;aspect-ratio:4/3;border:0}
 .prog div.t{padding:20px}
@@ -119,6 +119,7 @@ legend{font-weight:600;font-size:14px;margin-bottom:6px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chips label{display:flex;align-items:center;gap:8px;border:1.5px solid #d8d0c1;padding:0 14px;min-height:44px;font-weight:500;cursor:pointer;background:#fdfbf7}
 .chips input{width:18px;min-height:0;height:18px;accent-color:var(--gold)}
+.chips .ag{color:var(--muted);font-weight:500;font-size:13.5px}
 .chips label:has(input:checked){border-color:var(--gold);background:#fbf3e2}
 .row2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
 .err{color:#a3261b;font-size:13.5px;min-height:1em}
@@ -146,7 +147,6 @@ footer{background:#08090a;color:#8f887b;font-size:13.5px;padding:28px max(5vw,18
 @media(max-width:900px){
  .hero-grid,.founders,.formband,.coach{grid-template-columns:minmax(0,1fr)}
  .hero-pic{max-width:520px;width:100%;margin:8px auto 0}
- .progs{grid-template-columns:repeat(2,minmax(0,1fr))}
  .why{grid-template-columns:minmax(0,1fr)}
 }
 @media(max-width:600px){
@@ -312,13 +312,14 @@ if(crest&&pic&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby0depigOp9gM_vAzS4a9braIffBa9OV-utC9Ocgr0psl4KfzKOV3F0CVRqO6vR7O5j/exec"; // paste the Google Apps Script /exec URL here
 
 const progs=[
- ["Toddlers","","img/toddlers.jpg","Fun classes that build coordination, listening skills and confidence."],
+ ["Toddlers","2–4 years","img/toddlers.jpg","Fun classes that build coordination, listening skills and confidence."],
  ["Little Lions","4–7 years","img/young.jpg","Confidence, focus, discipline and real anti-bullying skills, taught in a fun, safe way."],
  ["Young Lions","8–11 years","img/younglions.jpg","Fitness, self-defence and a strong group of friends who push each other to grow."],
+ ["Teen Lions","12–15 years","img/teens.jpg","Real self-defence, fitness and a daily Mindset Program that builds discipline, self-belief and friendships with people who push them to be better."],
  ["Adults","","img/adults.jpg","Get fit, de-stress and learn real self-defence. No experience needed. Every black belt started as a white belt."]
 ];
 document.getElementById('progs').innerHTML=progs.map(p=>`<article class="prog"><div class="ph">${p[2]?`<img class="fill" src="${p[2]}" alt="${p[0]} class at KOJ">`:`<span>Photo: ${p[0]} class</span>`}</div><div class="t"><h3>${p[0]}</h3>${p[1]?`<span class="age">${p[1]}</span>`:'<span class="age">&nbsp;</span>'}<p>${p[3]}</p></div></article>`).join('');
-document.getElementById('chips').innerHTML=progs.map((p,i)=>`<label><input type="checkbox" name="program" value="${p[0]}" id="p${i}">${p[0]}</label>`).join('');
+document.getElementById('chips').innerHTML=progs.map((p,i)=>`<label><input type="checkbox" name="program" value="${p[0]}" id="p${i}">${p[0]}${p[1]?` <small class="ag">${p[1].replace(' years',' yrs')}</small>`:''}</label>`).join('');
 
 
 const faqs=[
